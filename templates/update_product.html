@@ -1,0 +1,42 @@
+{% extends 'profile_page.html' %}
+
+{% block filter %}{% endblock filter %}
+
+{% block category %}
+{% for obj in category_list %}
+    <li><a class="dropdown-item" href="#">{{obj.category_name}}</a></li>
+{% endfor %}
+{% endblock category %}
+
+{% block profile %}
+
+<h1 class="text-center mt-4">Update Product Details</h1>
+
+
+
+<form class="form-control mt-5" id="register_form" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+        <label>Product Name</label><br>
+        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="product_name" value="{{product.product_name}}" autocomplete="off"><br>
+    </div>
+    <div class="form-group">
+        <label>Product Discription</label><br>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="product_discription" autocomplete="off">{{product.product_discription}}</textarea><br>
+    </div>
+    <div class="form-group">
+        <label>Product Image</label><br>
+        <input type="file" class="form-control" id="exampleInputPassword1" name="product_image" autocomplete="off" value="{{product.product_image}}">
+        <a href="{{product.product_image}}" class="text-decoration-none text-dark">{{product.product_image}}</a><br><br>
+    </div>
+    <div class="form-group">
+        <label>Product Price</label><br>
+        <input type="text" class="form-control" id="exampleInputPassword1" name="product_price" autocomplete="off" value="{{product.product_price}}" aria-autocomplete="off"><br>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>
+
+{% endblock profile %}
+
+{% block paginator %}{% endblock %}

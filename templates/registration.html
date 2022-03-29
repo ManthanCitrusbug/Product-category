@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script defer src="{% static 'js/validate.js' %}"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <section id="register_form">
+        {% for msg in messages %}
+        <h3 class="text-danger">{{msg}}</h3>
+        {% endfor %}
+        <h1  class="form-label mt-5 text-center">Register</h1>
+        <form action="" class="form-control" method="POST" onsubmit="return validate()">
+            {% csrf_token %}
+            <div class="mb-3 my-4">
+                <label for="exampleFormControlInput1" class="form-label">User Name</label>
+                <input type="text" class="form-control" id="username" placeholder="User Name" name="username" autocomplete="off">
+                <span class="text-danger" id="error_username"></span>
+            </div>
+            <div class="mb-3 my-4">
+                <label for="exampleFormControlInput1" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="f_name" placeholder="First Name" name="f_name" autocomplete="off">
+                <span class="text-danger" id="error_f_name"></span>
+            </div>
+            <div class="mb-3 my-4">
+                <label for="exampleFormControlInput1" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="l_name" placeholder="Last Name" name="l_name" autocomplete="off">
+                <span class="text-danger" id="error_l_name"></span>
+            </div>
+            <div class="mb-3 my-4">
+                <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                <input type="text" class="form-control" id="email" placeholder="Email address" name="email" autocomplete="off">
+                <span class="text-danger" id="error_email"></span>
+            </div>
+            <div class="mb-3 my-4">
+                <label for="exampleFormControlInput1" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Password" name="password" autocomplete="off">
+                <span class="text-danger" id="error_password"></span>
+            </div>
+            <div class="mb-3 my-4">
+                <label for="exampleFormControlInput1" class="form-label">Confirm Password</label>
+                <input type="password" class="form-control" id="c_password" placeholder="Confirm Password" name="c_password" autocomplete="off">
+                <span class="text-danger" id="error_c_password"></span>
+            </div>
+            <input type="submit" class="btn btn-success btn-lg" value="Submit">
+            <a href="{% url 'login' %}" class="btn btn-primary btn-lg">Log In</a> 
+        </form>     
+    </section>
+
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    
+</body>
+</html>

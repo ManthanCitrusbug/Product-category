@@ -1,0 +1,68 @@
+{% extends 'profile_page.html' %}
+
+{% block filter %}{% endblock filter %}
+
+{% block category %}
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Categoris
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">  
+    {% for obj in category %}
+      <li><a class="dropdown-item" href="{% url 'categorypage' obj.id %}">{{obj.category_name}}</a></li>
+    {% endfor %}              
+    </ul>
+  </li>
+{% endblock category %}
+
+{% block profile %}
+
+<div class="jumbotron jumbotron-fluid mt-5">
+    <div class="container pt-5">
+        <h1 class="display-4">Home Page</h1>
+        <p class="lead">All Products... {{product_obj}}</p> 
+    </div>
+</div><br>       
+{% for stu in product_list %}        
+<div class="product_container">
+  <a href="{% url 'details' stu.id %}" class="text-decoration-none text-dark">
+  <div class="row">
+    <div class="col-sm image_container">
+      <img class="card-img-top" src="{{stu.product_image.url}}" width="300px" height="300px" alt="Card image cap">
+    </div>
+    <div class="col-sm">
+      <h5 class="card-title">{{stu.product_name}}</h5>
+      <p class="card-text">{{stu.product_discription}}</p>
+      <p class="card-text">{{stu.product_category}}</p>
+    </div>
+    <div class="col-sm">
+      <h5 class="card-title">User : {{stu.user}}</h5>
+      <h5 class="card-title">Price : ₹{{stu.product_price}}</h5>
+    </div> 
+  </div>
+  </a>
+</div>
+
+
+{% endfor %}
+
+{% endblock profile %}
+
+{% block paginator %}
+      {% if product_list %}
+      <div class="m-4">
+        <nav>
+            <ul class="pagination justify-content-center">
+              {% if product_list.has_previous %}
+                <li class="page-item"><a href="?page={{product_list.previous_page_number}}" class="page-link">Previous</a></li>
+                {% endif %}
+                <li class="page-item"><a href="#" class="page-link">{{product_list.number}}</a></li>
+                
+              {% if product_list.has_next %}
+                <li class="page-item"><a href="?page={{product_list.next_page_number}}" class="page-link">Next</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+      </div>
+      {% endif %}
+{% endblock paginator %}

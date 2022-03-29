@@ -1,0 +1,40 @@
+#register_form{
+    width: 80%;
+    margin: 0% 10%;
+}
+
+.product_container{
+    width: 80%;
+    margin: 2% 10%;
+    height: 300px;
+    /* border: 1px solid black; */
+    box-sizing: border-box;
+    display: inline-block;
+}
+
+.image_container{
+    box-sizing: border-box;
+    height: 300px;
+    width: 300px;
+    display: inline-block;
+}
+
+.product_link{
+    text-decoration: none;
+    color: black;
+}
+
+.product_link:hover{
+    text-decoration: none;
+    color: black;
+}
+
+.product_link:link{
+    text-decoration: none;
+    color: black;
+}
+
+.product_link:visited{
+    text-decoration: none;
+    color: black;
+}

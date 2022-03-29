@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script defer src="{% static 'js/validate.js' %}"></script>
+    <!-- <script defer scr="{% static 'js/add_product_validation.js' %}"></script> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="{% url 'profile' %}">{{user.username}}</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+              </li>
+
+              {% block category %}
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Categoris
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  {% for obj in category_obj %}
+                  <li><a class="dropdown-item" href="{% url 'categoryprofile' obj.id %}">{{obj.category_name}}</a></li>
+                  {% endfor %}
+                </ul>
+              </li>
+              {% endblock category %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">Log out</a>
+              </li>
+            </ul>
+            <form class="d-flex" method="GET" action="{% url 'searchproduct' %}">
+              
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search" autocomplete="off">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+    </nav>
+
+
+      {% block profile %}
+      <div class="jumbotron jumbotron-fluid mt-5">
+        <div class="container pt-5">
+          <h1 class="display-4">Welcome {{user.username}}</h1>
+          <p class="lead">Here are your products... {{total}}</p>
+          <!-- <input type="" class="btn btn-outline-success float-right" value="Add Product">
+          <input type="" class="btn btn-outline-primary float-right" value="Add Category"> -->
+          <a href="{% url 'addproduct' %}" class="btn btn-outline-success">Add Product</a>
+          <a href="{% url 'addcategory' %}" class="btn btn-outline-primary">Add Category</a>
+        </div>
+      </div>
+
+      <br><br><br>
+      {% for user in pages %}
+      <div class="jumbotron m-5">
+        <img src="{{user.product_image.url}}" class="image_container" alt=""> 
+        <h1 class="display-4">{{user.product_name}}</h1> 
+        <p class="lead">{{user.product_discription}}</p>
+        <hr class="my-4">
+        <p>₹{{user.product_price}}</p>
+        <p>{{user.product_category}}</p>
+        <p>{{user.user}}</p>
+        <a class="btn btn-primary btn-lg" href="{% url 'details' user.id %}" role="button">Details</a>  
+        <a class="btn btn-warning btn-lg" href="{% url 'update' user.id %}" role="button">Edit</a>
+        <a class="btn btn-danger btn-lg" href="{% url 'delete' user.id %}" role="button">Delete</a>
+      </div>
+        {% endfor %}
+      {% endblock profile %}
+
+      {% block paginator %}
+      {% if pages %}
+      <div class="m-4">
+        <nav>
+            <ul class="pagination justify-content-center">
+              {% if pages.has_previous %}
+                <li class="page-item"><a href="?page={{pages.previous_page_number}}" class="page-link">Previous</a></li>
+                {% endif %}
+                <li class="page-item"><a href="#" class="page-link">{{pages.number}}</a></li>
+                
+              {% if pages.has_next %}
+                <li class="page-item"><a href="?page={{pages.next_page_number}}" class="page-link">Next</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+      </div>
+      {% endif %}
+      {% endblock paginator %}
+
+      <script src="{% static 'js/bootstrap.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+{% extends 'profile_page.html' %}
+
+{% block filter %}{% endblock filter %}
+
+{% block category %}
+{% endblock category %}
+
+{% block profile %}
+
+
+
+<section style="background-color: #eee;">
+    <div class="container py-5">
+      <div class="row justify-content-center">
+        <div class="">
+          <div class="card text-black">
+            <i class="fab fa-apple fa-lg pt-3 pb-1 px-3"></i>
+            <img
+              src="{{product.product_image.url}}"
+              class="card-img-top"
+              alt="product image"
+              width="300px"
+              height="600px"
+            />
+            <div class="card-body">
+              <div class="text-center">
+                <h5 class="card-title">{{product.product_name}}</h5>
+                <p class="text-muted mb-4">{{product.product_discription}}</p>
+                
+              </div>
+              <div>
+                <!-- ś -->
+              <div class="d-flex justify-content-between total font-weight-bold mt-4">
+                <span>Total</span><span>₹{{product.product_price}}</span><br>
+                <p>Add By :</p><p class="text-muted mb-4">{{product.user}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+{% endblock profile %}
+
+{% block paginator %}{% endblock %}

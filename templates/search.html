@@ -1,0 +1,58 @@
+{% extends 'profile_page.html' %}
+
+{% block filter %}{% endblock filter %}
+
+{% block category %}
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Categoris
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+      {% for obj in category %}
+      <li><a class="dropdown-item" href="{% url 'categorypage' obj.id %}">{{obj.category_name}}</a></li>
+      {% endfor %}
+    </ul>
+  </li>
+{% endblock category %}
+
+{% block profile %}
+{% if search %}
+<div class="jumbotron jumbotron-fluid mt-5">
+  <div class="container pt-5">
+      <h1 class="display-4">Search Products</h1>
+      <p class="lead">Products Found... {{total}}</p> 
+  </div>
+</div><br>
+{% else %}  
+<div class="jumbotron jumbotron-fluid mt-5">
+  <div class="container pt-5">
+      <h1 class="display-4">Search Products</h1>
+      <p class="lead">Product Does not found...</p> 
+  </div>
+</div><br>
+{% endif %}   
+
+
+
+{% for st in search %}      
+  <div class="product_container">
+    <div class="row">
+      <div class="col-sm image_container">
+        <img class="card-img-top" src="{{st.product_image.url}}" width="300px" height="300px" alt="Card image cap">
+      </div>
+      <div class="col-sm">
+        <h5 class="card-title">{{st.product_name}}</h5>
+        <p class="card-text">{{st.product_discription}}</p>
+        <p class="card-text">{{st.product_category}}</p>
+      </div>
+      <div class="col-sm">
+        <h5 class="card-title">User : {{st.user}}</h5>
+        <h5 class="card-title">Price : ₹{{st.product_price}}</h5>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+
+{% endblock profile %}
+
+{% block paginator %}{% endblock %}
